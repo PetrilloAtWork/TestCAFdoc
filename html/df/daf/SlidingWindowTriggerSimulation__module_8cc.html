@@ -117,6 +117,68 @@ $(function(){ initResizable(false); });
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d5/dac/SlidingWindowPatternAlg_8h_source.html">icaruscode/PMT/Trigger/Algorithms/SlidingWindowPatternAlg.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d3/dda/WindowTopologyAlg_8h_source.html">icaruscode/PMT/Trigger/Algorithms/WindowTopologyAlg.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../de/d1e/WindowPatternConfig_8h_source.html">icaruscode/PMT/Trigger/Algorithms/WindowPatternConfig.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d48/WindowPattern_8h_source.html">icaruscode/PMT/Trigger/Algorithms/WindowPattern.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d18/ApplyBeamGate_8h_source.html">icaruscode/PMT/Trigger/Algorithms/ApplyBeamGate.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/dd8/BeamGateMaker_8h_source.html">icaruscode/PMT/Trigger/Algorithms/BeamGateMaker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/db0/TriggerTypes_8h_source.html">icaruscode/PMT/Trigger/Algorithms/TriggerTypes.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../db/d47/TriggerInfo__t_8h_source.html">icaruscode/PMT/Trigger/Algorithms/details/TriggerInfo_t.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/df8/DetectorClocksHelpers_8h_source.html">icaruscode/Utilities/DetectorClocksHelpers.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d7a/OpticalTriggerGate_8h_source.html">sbnobj/ICARUS/PMT/Trigger/Data/OpticalTriggerGate.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/dd0/TriggerDataUtils_8h_source.html">icaruscode/PMT/Trigger/Utilities/TriggerDataUtils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d81/OpDetWaveformMeta_8h_source.html">icaruscode/IcarusObj/OpDetWaveformMeta.h</a>&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/PlotSandbox.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/ROOTutils.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/BinningSpecs.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/FixedBins.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/mfLoggingClass.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/ChangeMonitor.h&quot;</code><br />
+<code>#include &quot;icarusalg/Utilities/rounding.h&quot;</code><br />
+<code>#include &quot;lardata/DetectorInfoServices/DetectorClocksService.h&quot;</code><br />
+<code>#include &quot;larcore/Geometry/Geometry.h&quot;</code><br />
+<code>#include &quot;larcore/CoreUtils/ServiceUtil.h&quot;</code><br />
+<code>#include &quot;lardataalg/DetectorInfo/DetectorTimings.h&quot;</code><br />
+<code>#include &quot;lardataalg/DetectorInfo/DetectorClocksData.h&quot;</code><br />
+<code>#include &quot;lardataalg/DetectorInfo/DetectorTimingTypes.h&quot;</code><br />
+<code>#include &quot;lardataalg/Utilities/quantities/spacetime.h&quot;</code><br />
+<code>#include &quot;lardataalg/Utilities/intervals_fhicl.h&quot;</code><br />
+<code>#include &quot;larcorealg/Geometry/GeometryCore.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/counter.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/enumerate.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/values.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/get_elements.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/UncopiableAndUnmovableClass.h&quot;</code><br />
+<code>#include &quot;larcorealg/CoreUtils/StdUtils.h&quot;</code><br />
+<code>#include &quot;lardataobj/RawData/TriggerData.h&quot;</code><br />
+<code>#include &quot;lardataobj/RawData/OpDetWaveform.h&quot;</code><br />
+<code>#include &quot;larcoreobj/SimpleTypesAndConstants/geo_types.h&quot;</code><br />
+<code>#include &quot;art_root_io/TFileService.h&quot;</code><br />
+<code>#include &quot;art_root_io/TFileDirectory.h&quot;</code><br />
+<code>#include &quot;art/Framework/Services/Registry/ServiceHandle.h&quot;</code><br />
+<code>#include &quot;art/Framework/Core/EDProducer.h&quot;</code><br />
+<code>#include &quot;art/Framework/Core/ModuleMacros.h&quot;</code><br />
+<code>#include &quot;art/Framework/Principal/Event.h&quot;</code><br />
+<code>#include &quot;canvas/Utilities/InputTag.h&quot;</code><br />
+<code>#include &quot;canvas/Utilities/Exception.h&quot;</code><br />
+<code>#include &quot;messagefacility/MessageLogger/MessageLogger.h&quot;</code><br />
+<code>#include &quot;fhiclcpp/types/Sequence.h&quot;</code><br />
+<code>#include &quot;fhiclcpp/types/OptionalAtom.h&quot;</code><br />
+<code>#include &quot;fhiclcpp/types/Atom.h&quot;</code><br />
+<code>#include &quot;TEfficiency.h&quot;</code><br />
+<code>#include &quot;TH1F.h&quot;</code><br />
+<code>#include &quot;TH2F.h&quot;</code><br />
+<code>#include &quot;TGraph.h&quot;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cassert&gt;</code><br />
 </div>
 <p><a href="../../df/daf/SlidingWindowTriggerSimulation__module_8cc_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">

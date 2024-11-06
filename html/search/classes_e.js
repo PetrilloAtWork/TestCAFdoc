@@ -17,8 +17,6 @@ var searchData=
   ['ophittimingcorrection_14',['OpHitTimingCorrection',['../d2/df2/classicarus_1_1OpHitTimingCorrection.html',1,'icarus']]],
   ['opt0finder_15',['OpT0Finder',['../d1/dca/classsbn_1_1OpT0Finder.html',1,'sbn']]],
   ['opticaltriggergate_16',['OpticalTriggerGate',['../d6/d34/classicarus_1_1trigger_1_1OpticalTriggerGate.html',1,'icarus::trigger']]],
-  ['opwaveformoverlay_17',['opWaveformOverlay',['../d5/d98/structOverlayProducts_1_1opWaveformOverlay.html',1,'OverlayProducts']]],
-  ['overlay1d_18',['Overlay1D',['../d8/d8d/classicarus__tool_1_1Overlay1D.html',1,'icarus_tool']]],
-  ['overlayicarus_19',['OverlayICARUS',['../db/d02/classdetsim_1_1OverlayICARUS.html',1,'detsim']]],
-  ['overlayproducts_20',['OverlayProducts',['../d0/d36/classOverlayProducts.html',1,'']]]
+  ['overlay1d_17',['Overlay1D',['../d8/d8d/classicarus__tool_1_1Overlay1D.html',1,'icarus_tool']]],
+  ['overlayicarus_18',['OverlayICARUS',['../db/d02/classdetsim_1_1OverlayICARUS.html',1,'detsim']]]
 ];
